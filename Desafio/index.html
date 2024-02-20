@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title href="index.html">Suite Store</title>
+</head>
+<header>
+    <h1>Suite Store</h1>
+    <nav>
+        <ul>
+            <li><a href = "index.html">Home</a></li>
+            <li><a href="products.html">Products</a></li>
+            <li><a href="categories.html">Categories</a></li>
+            <li><a href="history.html">History</a></li>
+        </ul>
+    </nav>
+</header>
+<body>
+    <main>
+        <div class="ProductAdd">
+        <div class="Product">
+            <input type="text" placeholder="Product">
+        </div>
+        <div class="SubIs">
+            <div ><input type="text" id="amount" placeholder="Amount"></div>
+            <div ><input type="text" id="tax" placeholder="Tax"></div>
+            <div ><input type="text" id="price" placeholder="Price"></div>
+        </div>
+        <div class="Add">
+            <input type="button" value="Add Product">
+        </div>
+    </div>
+</div>
+<div class="tableP">
+        <table>
+                    <tr>
+                        <th class="hometh" id="pcollun"><b>Product</b></th>
+                        <th class="hometh" id="ccollun"><b>Price</b></th>
+                        <th class="hometh" id="ccollun"><b>Amount</b></th>
+                        <th class="hometh" id="ccollun"><b>Total</b></th>
+                    </tr>
+                    <tr>
+                        <td class="hometd" id="pcollun">Rice</td>
+                        <td class="hometd" id="ccollun">$20.00</td>
+                        <td class="hometd" id="ccollun">2</td>
+                        <td class="hometd" id="ccollun">40.00</td>
+                    </tr>
+                    <tr>
+                        <td class="hometd" id="pcollun">Beans</td>
+                        <td class="hometd" id="ccollun">$9.00</td>
+                        <td class="hometd" id="ccollun">1</td>
+                        <td class="hometd" id="ccollun">9.00</td>
+                    </tr>
+                    <tr>
+                        <td class="hometd" id="pcollun">Potato</td>
+                        <td class="hometd" id="ccollun">$0.50</td>
+                        <td class="hometd" id="ccollun">21</td>
+                        <td class="hometd" id="ccollun">10.50</td>
+                    </tr>
+        </table>
+        <div>
+            <label for="IdTax"  id="IdTax">Tax: $6.50</label>
+        </div>
+        <div>
+            <label for="IdTotal" id="IdTotal">Total: $32.50</label>
+        </div>
+        <div>
+            <input class="Cancel" type="button" value="Cancel">
+            <input class="Finish" type="button" value="Finish">
+        </div>
+    </div>
+    </main>
+</body>
+
+</html>

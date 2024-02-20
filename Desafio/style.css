@@ -1,0 +1,234 @@
+html{
+   height: 100%;
+}
+header{
+    background-color: mediumslateblue;
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    height: 8%;
+    width: 100%;
+    padding-right: 50px;
+}
+header a{
+   text-decoration: none;
+}
+header ul{
+    list-style: none;
+    padding: 0;
+}
+header li{
+    font-weight: bold;
+    display: inline;
+    margin-right: 10px;
+    margin-left: 40px;
+}
+body{
+  margin: 0px;
+  padding: 0px;
+  height: 100%;
+ }
+.Product input{
+    width: 89%;
+    height: 35px;
+    margin-bottom: 10px;
+    margin-left: 5px;
+    font-weight: bold;
+    font-size: x-large;
+    justify-content: center;
+    align-items: center;
+ }
+
+ .CategoryName input{
+   width: 89%;
+   height: 35px;
+   margin-bottom: 10px;
+   margin-left: 5px;
+   font-weight: bold;
+   font-size: x-large;
+}
+ .SubIs {
+  display: flex;
+  margin-left: 5px;
+ }
+ .SubIs2 {
+   display: flex;
+  align-items: center;
+  justify-content: center;
+  }
+ #amount{
+   margin-right: 10px;
+   padding-right: 155px;
+   height: 35px;
+   font-size: large;
+ }
+ #amount2{
+   margin-right: 10px;
+   height: 35px;
+   font-size: large;
+ }
+ #tax{
+   margin-right: 10px;
+   height: 35px;
+   font-size: large;
+ }
+ #category{
+   margin-right: 10px;
+   height: 35px;
+   font-size: large;
+ }
+ #tax2{
+   margin-right: 10px;
+   padding-right: 155px;
+   height: 35px;
+   font-size: large;
+ }
+ #price{
+   margin-right: 10px;
+   height: 35px;
+   font-size: large;
+ }
+ .Add input{
+    margin-top: 15px;
+    width: 90%;
+    text-align: center;
+    background-color: mediumslateblue;
+    font-weight: bold;
+    margin-left: 5px;
+    padding: 10px;
+    font-size: large;
+    justify-content: center;
+    align-items: center;
+ }
+ main{
+   display: grid;
+   grid-template-columns: 
+   50% 50%;
+   grid-template-areas: ProductAdd tableP;
+   font-family: Arial, Helvetica, sans-serif;
+   height: 100%;
+ }
+table th{
+   border-bottom: 1px solid;
+}
+table td{
+   border-bottom: 1px solid;
+}
+table{
+   border-collapse: collapse;
+   text-align: left;
+   width: 100%;
+   margin-left: 15px;
+}
+.tableP{
+   width: 100%;
+   border-left: 2px solid;
+   height: 100%;
+}
+.hometd{
+   width: 450px;
+}
+.Cancel{
+   position: absolute;
+   left: 75%;
+   bottom: 20px;
+   font: 200;
+   padding: 10px;
+   width: 180px;
+   border-radius: 10px;
+   font-weight: bold;
+}
+.Finish{
+   position: absolute;
+   left: 85%;
+   bottom: 20px;
+   font: 200;
+   padding: 10px;
+   width: 180px;
+   font-weight: bold;
+   border-radius: 10px;
+   background-color: mediumslateblue;
+}
+.Voltar button{
+   position: absolute;
+   left: 85%;
+   bottom: 20px;
+   font: 200;
+   padding: 10px;
+   width: 180px;
+   font-weight: bold;
+   border-radius: 10px;
+   background-color: mediumslateblue;
+}
+.subI{
+   width: 30%;
+}
+#ccollun{
+   border-left: 1px solid;
+   padding: 5px;
+   width: 30px;
+   font-size: x-large;
+   color: gray;
+}
+#ccollun2{
+   border-left: 1px solid;
+   padding: 5px;
+   font-size: x-large;
+   color: gray;}
+
+ #ccollun3{
+   border-left: 1px solid;
+   padding: 5px;
+   font-size: large;
+   color: gray;
+ }
+
+#ccollun3 button{
+   padding: 5px;
+   width: 100px;
+   font-size: large;
+   background-color: mediumslateblue;
+}
+#ccollun4 button{
+   padding: 5px;
+   width: 100px;
+   font-size: large;
+   background-color: darkgray;
+}
+
+#pcollun{
+   font-size: x-large;
+   color: gray;
+}
+#pcollun2{
+   font-size: large;
+   color: gray;
+}
+
+#IdTotal{
+   position: absolute;
+   left: 85%;
+   bottom: 80px;
+   font-weight: bold;
+}
+#IdTax{
+   position: absolute;
+   left: 85%;
+   bottom: 110px;
+   font-weight: bold;
+}
+.ProductAdd{
+   margin-right: 1px;
+}
+.Delete{
+   position: absolute;
+   left: 85%;
+   bottom: 20px;
+   font: 200;
+   padding: 10px;
+   width: 180px;
+   font-weight: bold;
+   border-radius: 10px;
+   background-color: mediumslateblue;
+}

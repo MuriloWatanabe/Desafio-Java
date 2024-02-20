@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Suite Store</title>
+    
+</head>
+<header>
+    <h1>Categories</h1>
+    <nav>
+        <ul>
+            <li><a href = "index.html">Home</a></li>
+            <li><a href = "products.html">Products</a></li>
+            <li><a href = "categories.html">Categories</a></li>
+            <li><a href = "history.html">History</a></li>
+            </ul>
+    </nav>
+</header>
+<body>
+    <main>
+        <div class="CNAdd">
+        <div class="CategoryName">
+            <input type="text" id="ctt" name="data" placeholder="Category Name">
+        </div>
+        <div class="SubIs">
+            <div ><input type="text" name="number" id="ctt2" placeholder="Tax"></div>
+        </div>
+        <div class="Add">
+         <button onclick="Salvar()">Add Category</button>
+        </div>
+    </div>
+</div>
+<div class="tableP">
+        <table>
+                    <tr>
+                        <th class="hometh" id="pcollun"><b>Code</b></th>
+                        <th class="hometh" id="ccollun"><b>Category</b></th>
+                        <th class="hometh" id="ccollun"><b>Tax</b></th>
+                    </tr>
+                    <tr>
+                        <td class="hometd" id="pcollun">Rice</td>
+                        <td class="hometd" id="ccollun2">$20.00</td>
+                        <td class="hometd" id="ccollun2">2</td>
+                        <td class="hometd" id="ccollun3"><Button>Delete</Button></td>
+                    </tr>
+                    <tr>
+                        <td class="hometd" id="pcollun">Beans</td>
+                        <td class="hometd" id="ccollun2">$9.00</td>
+                        <td class="hometd" id="ccollun2">1</td>
+                        <td class="hometd" id="ccollun3"><Button>Delete</Button></td>
+                    </tr>
+        </table>
+        <div>
+            <input class="Finish" type="button" value="Finish">
+        </div>
+    </div>
+    <script>
+        // function Salvar(){
+        //     var ctt = document.getElementById('ctt').value;
+        //     localStorage.setItem('data', ctt);
+        //     var ctt2 = document.getElementById('ctt2').value;
+        //     localStorage.setItem('number', ctt2);
+        //     console.log(ctt);
+        //     console.log(ctt2);
+        // }
+
+   function Salvar(){
+    if (typeof(Storage) !== "undefined"){
+
+        if (localStorage.cont) {
+            localStorage.cont = Number(localStorage.cont)+1;
+        } else{
+            localStorage.cont = 1;
+        }
+
+        cad = document.getElementById('ctt').value + ';' + document.getElementById('ctt2').value;
+        localStorage.setItem("cad_"+localStorage.cont,cad);
+    }   else{
+        
+    }
+   }
+    
+    </script>
+    </main>
+</body>
+
+</html>
