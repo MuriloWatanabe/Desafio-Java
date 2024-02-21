@@ -25,63 +25,81 @@
             <input type="text" id="ctt" name="data" placeholder="Category Name">
         </div>
         <div class="SubIs">
-            <div ><input type="text" name="number" id="ctt2" placeholder="Tax"></div>
+            <div ><input type="text" name="tax" id="ctt2" placeholder="Tax"></div>
         </div>
         <div class="Add">
          <button onclick="Salvar()">Add Category</button>
         </div>
     </div>
 </div>
-<div class="tableP">
+<div id="tableP">
         <table>
                     <tr>
-                        <th class="hometh" id="pcollun"><b>Code</b></th>
                         <th class="hometh" id="ccollun"><b>Category</b></th>
                         <th class="hometh" id="ccollun"><b>Tax</b></th>
+                        <th class="hometh" id="ccollun"><b>Options</b></th>
                     </tr>
                     <tr>
                         <td class="hometd" id="pcollun">Rice</td>
                         <td class="hometd" id="ccollun2">$20.00</td>
-                        <td class="hometd" id="ccollun2">2</td>
                         <td class="hometd" id="ccollun3"><Button>Delete</Button></td>
                     </tr>
                     <tr>
                         <td class="hometd" id="pcollun">Beans</td>
                         <td class="hometd" id="ccollun2">$9.00</td>
-                        <td class="hometd" id="ccollun2">1</td>
                         <td class="hometd" id="ccollun3"><Button>Delete</Button></td>
                     </tr>
+                    <tbody class="tbody">
+
+                    </tbody>
         </table>
         <div>
             <input class="Finish" type="button" value="Finish">
         </div>
     </div>
     <script>
-        // function Salvar(){
-        //     var ctt = document.getElementById('ctt').value;
-        //     localStorage.setItem('data', ctt);
-        //     var ctt2 = document.getElementById('ctt2').value;
-        //     localStorage.setItem('number', ctt2);
-        //     console.log(ctt);
-        //     console.log(ctt2);
-        // }
+        function Salvar(){
+          var category = document.getElementById('ctt').value;
+          var tax = document.getElementById('ctt2').value;
+    
+          const categories = {category , tax};
 
-   function Salvar(){
-    if (typeof(Storage) !== "undefined"){
-
-        if (localStorage.cont) {
-            localStorage.cont = Number(localStorage.cont)+1;
-        } else{
-            localStorage.cont = 1;
+          if (localStorage.getItem('items') == null){
+            localStorage.setItem('items', JSON.stringify([categories]))
+          } else{
+            localStorage.setItem(
+                'items',
+                JSON.stringify([
+                    ...JSON.parse(localStorage.getItem('items')), categories
+                ])
+            );
+          }
+          renderItem(categories);
         }
 
-        cad = document.getElementById('ctt').value + ';' + document.getElementById('ctt2').value;
-        localStorage.setItem("cad_"+localStorage.cont,cad);
-    }   else{
-        
-    }
-   }
-    
+        function renderItem(categories) {
+       let table = document.querySelector('tbody')
+       let tr = document.createElement('tr')
+       tr.innerHTML=` <td class="hometd" id="pcollun">${categories.category}</td>
+                      <td class="hometd" id="ccollun2">${categories.tax}</td>
+                      <td class="hometd" id="ccollun3"><Button onclick='removeItem()'>Delete</Button></td>`;
+                      table.append(tr)
+       }
+          
+        function getItems(){
+            const items= JSON.parse(localStorage.getItem('items'));
+            items.forEach(item => renderItem(item));
+        }
+        function removeItem(){
+            let trow = this.event.target.parentElement.parentElement
+            let name = trow.children[0].innerText
+            let tax = trow.children[1].innerText
+            let categories =JSON.parse(localStorage.getItem('items'))
+            let newCategories = categories.filter(category => category.name !== name && category.tax !==tax);
+            localStorage.setItem("items", JSON.stringify(newCategories))
+            trow.remove()
+        }
+        getItems()
     </script>
     </main>
 </body>

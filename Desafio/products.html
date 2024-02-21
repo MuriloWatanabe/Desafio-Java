@@ -22,7 +22,7 @@
     <main>
         <div class="ProductAdd">
         <div class="Product">
-            <input type="text" placeholder="Product Name">
+            <input type="text" placeholder="Product Name" id="product2">
         </div>
         <div class="SubIs2">
             <div ><input type="text" id="amount2" placeholder="Amount"></div>
@@ -30,7 +30,7 @@
             <div ><input type="text" id="category" placeholder="Category"></div>
         </div>
         <div class="Add">
-            <input type="button" value="Add Product">
+            <button onclick="Salvar()">Add Category</button>
         </div>
     </div>
 </div>
@@ -43,7 +43,7 @@
                         <th class="hometh" id="ccollun3"><b>Unit price</b></th>
                         <th class="hometh" id="ccollun3"><b>Category</b></th>
                     </tr>
-                    <tr>
+                    <!-- <tr>
                         <td class="hometd" id="pcollun2">001</td>
                         <td class="hometd" id="ccollun3">Rice</td>
                         <td class="hometd" id="ccollun3">10</td>
@@ -58,13 +58,65 @@
                         <td class="hometd" id="ccollun3">9.00</td>
                         <td class="hometd" id="ccollun3">Food</td>
                         <td class="hometd" id="ccollun3"><Button>Delete</Button></td>
-                    </tr>
+                    </tr> -->
+                    <tbody class="tbody">
+
+                    </tbody>
         </table>
         <div>
             <input class="Cancel" type="button" value="Cancel">
             <input class="Finish" type="button" value="Finish">
         </div>
     </div>
+    <script>
+        function Salvar(){
+          var ipp = JSON.parse(localStorage.getItem('ipp')) || [];
+          var product = document.getElementById('product2').value;
+          var amount = document.getElementById('amount2').value;
+          var  unit = document.getElementById('price').value;
+          var cat = document.getElementById('category').value;
+          id = 0;
+          for(let i= 0; i < ipp.length; i++){
+            if(ipp[i].id >=id){
+                id = ipp[i].id +1
+            }
+          }
+    
+          const Products = {product , amount , unit , cat , id};
+
+          ipp.push(Products)
+          localStorage.setItem("ipp", JSON.stringify(ipp))
+
+          renderItem(Products);
+          }
+
+        function renderItem(Products) {
+       let tbody = document.querySelector('.tbody')
+       let tr = document.createElement('tr')
+       tr.innerHTML=` <td class="hometd" id="pcollun2">${Products.id}</td>
+                      <td class="hometd" id="pcollun">${Products.product}</td>
+                      <td class="hometd" id="ccollun2">${Products.amount}</td>
+                      <td class="hometd" id="ccollun2">${Products.unit}</td>
+                      <td class="hometd" id="ccollun2">${Products.cat}</td>
+                      <td class="hometd" id="ccollun3"><Button onclick='removeItem()'>Delete</Button></td>`;
+                      tbody.append(tr)
+       }
+          
+        function getItems(){
+            const items= JSON.parse(localStorage.getItem('ipp'));
+            items.forEach(item => renderItem(item));
+        }
+        function removeItem(){
+            let trow = this.event.target.parentElement.parentElement
+            let ipp = trow.children[0].innerText
+            let name = trow.children[1].innerText
+            let Products =JSON.parse(localStorage.getItem('ipp'))
+            let newProducts = Products.filter(product => product.ipp !== ipp && product.name !==name);
+            localStorage.setItem('ipp', JSON.stringify(newProducts))
+            trow.remove()
+        }
+        getItems()
+        </script>
     </main>
 </body>
 
