@@ -22,15 +22,15 @@
     <main>
         <div class="ProductAdd">
         <div class="Product">
-            <input type="text" placeholder="Product">
+            <input type="text" id="input" placeholder="Product">
         </div>
         <div class="SubIs">
             <div ><input type="text" id="amount" placeholder="Amount"></div>
             <div ><input type="text" id="tax" placeholder="Tax"></div>
-            <div ><input type="text" id="price" placeholder="Price"></div>
+            <div ><input type="text" id="price2" placeholder="Price"></div>
         </div>
         <div class="Add">
-            <input type="button" value="Add Product">
+           <button onclick="Salvar()">Add Product</button>
         </div>
     </div>
 </div>
@@ -40,9 +40,11 @@
                         <th class="hometh" id="pcollun"><b>Product</b></th>
                         <th class="hometh" id="ccollun"><b>Price</b></th>
                         <th class="hometh" id="ccollun"><b>Amount</b></th>
+                        <th class="hometh" id="ccollun"><b>Tax</b></th>
                         <th class="hometh" id="ccollun"><b>Total</b></th>
+                        <th class="hometh" id="ccollun"><b>Options</b></th>
                     </tr>
-                    <tr>
+                    <!-- <tr>
                         <td class="hometd" id="pcollun">Rice</td>
                         <td class="hometd" id="ccollun">$20.00</td>
                         <td class="hometd" id="ccollun">2</td>
@@ -59,7 +61,7 @@
                         <td class="hometd" id="ccollun">$0.50</td>
                         <td class="hometd" id="ccollun">21</td>
                         <td class="hometd" id="ccollun">10.50</td>
-                    </tr>
+                    </tr> -->
         </table>
         <div>
             <label for="IdTax"  id="IdTax">Tax: $6.50</label>
@@ -72,6 +74,58 @@
             <input class="Finish" type="button" value="Finish">
         </div>
     </div>
+    <script>
+        function Salvar(){
+          var product = document.getElementById('input').value;
+          var amount = document.getElementById('amount').value;
+          var tax = document.getElementById('tax').value;
+          var price = document.getElementById('price2').value;
+    
+    
+          const HP = {product , amount , tax , price};
+
+          if (localStorage.getItem('items3') == null){
+            localStorage.setItem('items3', JSON.stringify([HP]))
+          } else{
+            localStorage.setItem(
+                'items3',
+                JSON.stringify([
+                    ...JSON.parse(localStorage.getItem('items3')), HP
+                ])
+            );
+          }
+          renderItem(HP);
+        }
+
+        function renderItem(HP) {
+       let table = document.querySelector('tbody')
+       let tr = document.createElement('tr')
+       tr.innerHTML=` <td class="hometd" id="pcollun">${HP.product}</td>
+                      <td class="hometd" id="ccollun2">${HP.amount}</td>
+                      <td class="hometd" id="ccollun2">${HP.tax}</td>
+                      <td class="hometd" id="ccollun2">${HP.price}</td>
+                      <td class="hometd" id="ccollun2">${HP.price}</td>
+                      <td class="hometd" id="ccollun3"><Button onclick='removeItem()'>Delete</Button></td>`;
+                      table.append(tr)
+       }
+          
+        function getItems(){
+            const items= JSON.parse(localStorage.getItem('items3'));
+            items.forEach(item => renderItem(item));
+        }
+        function removeItem(){
+            let trow = this.event.target.parentElement.parentElement
+            let pt = trow.children[0].innerText
+            console.log(pt)
+            let price = trow.children[1].innerText
+            console.log(price)
+            let categories =JSON.parse(localStorage.getItem('items3'))
+            let newCategories = categories.filter(HP => HP.product !== pt && HP.price !==price);
+            localStorage.setItem("items3", JSON.stringify(newCategories))
+            trow.remove()
+        }
+        getItems()
+    </script>
     </main>
 </body>
 

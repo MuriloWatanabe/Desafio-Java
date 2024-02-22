@@ -84,7 +84,17 @@ body{
    height: 35px;
    font-size: large;
  }
+ #price2{
+   margin-right: 10px;
+   height: 35px;
+   font-size: large;
+ }
  #price{
+   margin-right: 10px;
+   height: 35px;
+   font-size: large;
+ }
+ #select-c{
    margin-right: 10px;
    height: 35px;
    font-size: large;
@@ -167,7 +177,7 @@ table{
 #ccollun{
    border-left: 1px solid;
    padding: 5px;
-   width: 30px;
+   width: 25px;
    font-size: x-large;
    color: gray;
 }

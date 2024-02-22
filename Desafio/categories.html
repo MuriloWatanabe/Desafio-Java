@@ -35,17 +35,20 @@
 <div id="tableP">
         <table>
                     <tr>
+                        <th class="hometh" id="ccollun"><b>Code</b></th>
                         <th class="hometh" id="ccollun"><b>Category</b></th>
                         <th class="hometh" id="ccollun"><b>Tax</b></th>
                         <th class="hometh" id="ccollun"><b>Options</b></th>
                     </tr>
                     <tr>
-                        <td class="hometd" id="pcollun">Rice</td>
+                        <td class="hometd" id="ccollun">Rice</td>
+                        <td class="hometd" id="ccollun">Rice</td>
                         <td class="hometd" id="ccollun2">$20.00</td>
                         <td class="hometd" id="ccollun3"><Button>Delete</Button></td>
                     </tr>
                     <tr>
-                        <td class="hometd" id="pcollun">Beans</td>
+                        <td class="hometd" id="ccollun">Beans</td>
+                        <td class="hometd" id="ccollun">Rice</td>
                         <td class="hometd" id="ccollun2">$9.00</td>
                         <td class="hometd" id="ccollun3"><Button>Delete</Button></td>
                     </tr>
@@ -59,10 +62,17 @@
     </div>
     <script>
         function Salvar(){
+          var categorias = JSON.parse(localStorage.getItem('items')) || [];
           var category = document.getElementById('ctt').value;
           var tax = document.getElementById('ctt2').value;
+          var id = 0;
+          for(let i= 0; i < categorias.length; i++){
+            if(categorias[i].id >=id){
+                id = categorias[i].id +1
+            }
+          }
     
-          const categories = {category , tax};
+          const categories = {category , tax , id};
 
           if (localStorage.getItem('items') == null){
             localStorage.setItem('items', JSON.stringify([categories]))
@@ -73,15 +83,18 @@
                     ...JSON.parse(localStorage.getItem('items')), categories
                 ])
             );
+          categorias.push(categories)
+          localStorage.setItem("items", JSON.stringify(categorias))
           }
           renderItem(categories);
-        }
+          }
 
         function renderItem(categories) {
        let table = document.querySelector('tbody')
        let tr = document.createElement('tr')
-       tr.innerHTML=` <td class="hometd" id="pcollun">${categories.category}</td>
-                      <td class="hometd" id="ccollun2">${categories.tax}</td>
+       tr.innerHTML=` <td class="hometd" id="ccollun">${categories.id}</td>
+                      <td class="hometd" id="ccollun">${categories.category}</td>               
+                      <td class="hometd" id="ccollun">${categories.tax}</td>
                       <td class="hometd" id="ccollun3"><Button onclick='removeItem()'>Delete</Button></td>`;
                       table.append(tr)
        }
@@ -92,10 +105,11 @@
         }
         function removeItem(){
             let trow = this.event.target.parentElement.parentElement
-            let name = trow.children[0].innerText
-            let tax = trow.children[1].innerText
+            let id = trow.children[0].innerText
+            let tax = trow.children[2].innerText
+            console.log(tax)
             let categories =JSON.parse(localStorage.getItem('items'))
-            let newCategories = categories.filter(category => category.name !== name && category.tax !==tax);
+            let newCategories = categories.filter(category => category.id !== id && category.tax !==tax);
             localStorage.setItem("items", JSON.stringify(newCategories))
             trow.remove()
         }
