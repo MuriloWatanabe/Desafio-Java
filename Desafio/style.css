@@ -63,6 +63,13 @@ body{
    height: 35px;
    font-size: large;
  }
+ #select-p{
+   margin-left: 5px;
+   margin-bottom: 10px;
+   padding-right: 155px;
+   height: 35px;
+   font-size: large;
+ }
  #amount2{
    margin-right: 10px;
    height: 35px;
@@ -99,7 +106,7 @@ body{
    height: 35px;
    font-size: large;
  }
- .Add input{
+ .Add button{
     margin-top: 15px;
     width: 90%;
     text-align: center;
