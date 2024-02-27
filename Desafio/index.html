@@ -39,7 +39,6 @@
     </div>
     <div class="tableP">
         <table>
-            <thead>
                 <tr>
                     <th class="hometh" id="ccollun"><b>Product</b></th>
                     <th class="hometh" id="ccollun"><b>Price</b></th>
@@ -48,7 +47,6 @@
                     <th class="hometh" id="ccollun"><b>Total</b></th>
                     <th class="hometh" id="ccollun"><b>Options</b></th>
                 </tr>
-            </thead>
             <tbody id="productList"></tbody>
         </table>
     
@@ -118,7 +116,7 @@
                 <td class="hometd" id="pcollun">${HP.price}</td>
                 <td class="hometd" id="ccollun2">${HP.amount}</td>
                 <td class="hometd" id="ccollun2">${HP.tax}%</td>
-                <td class="hometd" id="ccollun2">${HP.total}</td>
+                <td class="hometd" id="ccollun2">R$${HP.total}</td>
                 <td class="hometd" id="ccollun2"><button onclick='removeItem(this)' id='delete'>Delete</button></td>
             `;
             table.appendChild(tr);

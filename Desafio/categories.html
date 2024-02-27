@@ -8,7 +8,7 @@
     
 </head>
 <header>
-    <h1>Categories</h1>
+    <h1>Suite Store</h1>
     <nav>
         <ul>
             <li><a href = "index.html">Home</a></li>
@@ -63,6 +63,12 @@
     
           const categories = {category , tax , id};
 
+          
+          if (tax === ""|| category === "") {
+                alert("Preencha todos os campos!")
+                return;
+            }
+
           if (localStorage.getItem('Categories') == null){
             localStorage.setItem('Categories', JSON.stringify([categories]))
           } else{
@@ -73,7 +79,7 @@
                 ])
             );
           categorias.push(categories)
-          localStorage.setItem("items", JSON.stringify(categorias))
+          localStorage.setItem("Categories", JSON.stringify(categorias))
           }
           renderItem(categories);
           }

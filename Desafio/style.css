@@ -1,35 +1,47 @@
-html{
+html {
    height: 100%;
 }
-header{
-    background-color: mediumslateblue;
-    font-family: Arial, Helvetica, sans-serif;
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-    height: 8%;
-    width: 100%;
-    padding-right: 50px;
-    position:fixed;
+
+body {
+   margin: 0;
+   padding: 0;
+   height: 100%;
+   font-family: Arial, Helvetica, sans-serif;
 }
-header a{
+
+header {
+   background-color: mediumslateblue;
+   color: white;
+   padding: 5px 50px;
+   top: 0;
+   width: 100%;
+   z-index: 1000
+}
+
+header a {
    text-decoration: none;
+   color: white;
 }
-header ul{
-    list-style: none;
-    padding: 0;
+
+header ul {
+   list-style: none;
+   padding: 0;
 }
-header li{
-    font-weight: bold;
-    display: inline;
-    margin-right: 10px;
-    margin-left: 40px;
+
+header li {
+   display: inline;
+   margin-right: 20px;
+   font-weight: bold;
 }
-body{
-  margin: 0px;
-  padding: 0px;
-  height: 100%;
- }
+
+main {
+   margin-top: 60px;
+   display: grid;
+   grid-template-columns: 50% 50%;
+   grid-gap: 20px;
+   padding: 20px;
+   overflow: auto;
+}
 .Product input{
     width: 89%;
     height: 35px;
@@ -69,9 +81,11 @@ body{
    margin-bottom: 10px;
    padding-right: 155px;
    height: 35px;
+   width:300px;
    font-size: large;
  }
  #amount2{
+   margin-left: -230px;
    margin-right: 10px;
    height: 35px;
    font-size: large;
@@ -106,10 +120,11 @@ body{
    margin-right: 10px;
    height: 35px;
    font-size: large;
+   width:200px;
  }
  .Add button{
     margin-top: 15px;
-    width: 90%;
+    width: 100%;
     text-align: center;
     background-color: mediumslateblue;
     font-weight: bold;
@@ -118,14 +133,6 @@ body{
     font-size: large;
     justify-content: center;
     align-items: center;
- }
- main{
-   display: grid;
-   grid-template-columns: 
-   50% 50%;
-   grid-template-areas: ProductAdd tableP;
-   font-family: Arial, Helvetica, sans-serif;
-   height: 100%;
  }
 table th{
    border-bottom: 1px solid;
@@ -145,7 +152,7 @@ table{
    height: 100%;
 }
 .hometd{
-   width: 450px;
+   width: 150px;
 }
 .Cancel{
    position: absolute;
@@ -186,8 +193,6 @@ table{
    border-left: 1px solid;
    border-top: 1px solid;
    border-right: 1px solid;
-   padding: 5px;
-   width: 25px;
    font-size: x-large;
    color: gray;
 }
@@ -195,19 +200,19 @@ table{
    border-left: 1px solid;
    padding: 5px;
    font-size: x-large;
+   width: 5px;
    color: gray;}
 
  #ccollun3{
-   border-left: 1px solid;
-   padding: 5px;
-   font-size: large;
+   font-size: x-large;
+   width: 5%;
    color: gray;
-   border-right: 1px solid;
+   border-left: 1px solid;
+   box-sizing: border-box;
  }
 
 #ccollun3 button{
-   padding: 5px;
-   width: 100px;
+   width: 40%;
    font-size: large;
    background-color: mediumslateblue;
 }
@@ -220,6 +225,7 @@ table{
 }
 #ccollun4 button{
    padding: 5px;
+   width: 25px;
    width: 100px;
    font-size: large;
    background-color: darkgray;
@@ -227,6 +233,7 @@ table{
 
 #pcollun{
    font-size: x-large;
+   width: 5%;
    color: gray;
    border-left: 1px solid;
 }
@@ -234,6 +241,7 @@ table{
    font-size: large;
    color: gray;
    font-size: x-large;
+   width: 25px;
    border-right: 1px solid;
    border-left: 1px solid;
 }
