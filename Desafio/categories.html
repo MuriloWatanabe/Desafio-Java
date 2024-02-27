@@ -25,7 +25,7 @@
             <input type="text" id="ctt" name="data" placeholder="Category Name">
         </div>
         <div class="SubIs">
-            <div ><input type="text" name="tax" id="ctt2" placeholder="Tax"></div>
+            <div ><input type="text" name="tax" id="ctt2" placeholder="Tax" min="1" oninput="this.value = Math.abs(this.value)"></div>
         </div>
         <div class="Add">
          <button onclick="Salvar()">Add Category</button>
@@ -44,13 +44,10 @@
 
                     </tbody>
         </table>
-        <div>
-            <input class="Finish" type="button" value="Finish">
-        </div>
     </div>
     <script>
         function Salvar(){
-          var categorias = JSON.parse(localStorage.getItem('items')) || [];
+          var categorias = JSON.parse(localStorage.getItem('Categories')) || [];
           var category = document.getElementById('ctt').value;
           var tax = document.getElementById('ctt2').value;
           var id = 0;
@@ -62,13 +59,13 @@
     
           const categories = {category , tax , id};
 
-          if (localStorage.getItem('items') == null){
-            localStorage.setItem('items', JSON.stringify([categories]))
+          if (localStorage.getItem('Categories') == null){
+            localStorage.setItem('Categories', JSON.stringify([categories]))
           } else{
             localStorage.setItem(
-                'items',
+                'Categories',
                 JSON.stringify([
-                    ...JSON.parse(localStorage.getItem('items')), categories
+                    ...JSON.parse(localStorage.getItem('Categories')), categories
                 ])
             );
           categorias.push(categories)
@@ -82,13 +79,13 @@
        let tr = document.createElement('tr')
        tr.innerHTML=` <td class="hometd" id="ccollun">${categories.id}</td>
                       <td class="hometd" id="ccollun">${categories.category}</td>               
-                      <td class="hometd" id="ccollun">${categories.tax}</td>
+                      <td class="hometd" id="ccollun">${categories.tax}%</td>
                       <td class="hometd" id="ccollun3"><Button onclick='removeItem()'>Delete</Button></td>`;
                       table.append(tr)
        }
           
         function getItems(){
-            const items= JSON.parse(localStorage.getItem('items'));
+            const items= JSON.parse(localStorage.getItem('Categories'));
             items.forEach(item => renderItem(item));
         }
         function removeItem(){
@@ -96,9 +93,9 @@
             let id = trow.children[0].innerText
             let tax = trow.children[2].innerText
             console.log(tax)
-            let categories =JSON.parse(localStorage.getItem('items'))
+            let categories =JSON.parse(localStorage.getItem('Categories'))
             let newCategories = categories.filter(category => category.id !== id && category.tax !==tax);
-            localStorage.setItem("items", JSON.stringify(newCategories))
+            localStorage.setItem("Categories", JSON.stringify(newCategories))
             trow.remove()
         }
         getItems()

@@ -156,7 +156,7 @@ table{
    border-radius: 10px;
    font-weight: bold;
 }
-.Finish{
+#finish{
    position: absolute;
    left: 85%;
    bottom: 20px;
@@ -207,6 +207,13 @@ table{
    font-size: large;
    background-color: mediumslateblue;
 }
+
+#delete{
+   padding: 5px;
+   width: 100px;
+   font-size: large;
+   background-color: mediumslateblue;
+}
 #ccollun4 button{
    padding: 5px;
    width: 100px;
@@ -217,13 +224,14 @@ table{
 #pcollun{
    font-size: x-large;
    color: gray;
+   border-left: 1px solid;
 }
 #pcollun2{
    font-size: large;
    color: gray;
 }
 
-#IdTotal{
+#total{
    position: absolute;
    left: 85%;
    bottom: 80px;

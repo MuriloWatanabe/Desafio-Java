@@ -51,20 +51,18 @@
             </thead>
             <tbody id="productList"></tbody>
         </table>
-        <div>
-            <label for="IdTax" id="IdTax">Tax: $6.50</label>
-        </div>
-        <div>
-            <label for="IdTotal" id="IdTotal">Total: $32.50</label>
+    
+        <div id="total">
+            
         </div>
         <div>
             <input class="Cancel" type="button" value="Cancel">
-            <input class="Finish" type="button" value="Finish">
+            <button id="finish" onchange="AddHistory()">Finish</button>
         </div>
     </div>
     <script>
         function getProduct() {
-            var produto = JSON.parse(localStorage.getItem('items2')) || [];
+            var produto = JSON.parse(localStorage.getItem('Products')) || [];
             var select = document.getElementById('select-p');
 
             produto.forEach(CG => {
@@ -73,6 +71,19 @@
                 option.innerText = JSON.stringify(CG.product);
                 select.append(option);
             })
+        }
+        function TotalPrice(){
+            let cart = JSON.parse(localStorage.getItem('cart'));
+            let amount = document.querySelectorAll('.amount')
+            let total = 0;
+
+            if(cart){
+                cart.forEach((cart, ItemCart) => {
+                    let numberPrice = parseFloat(cart.price);
+                    total += cart.total * cart.amount;
+                });
+        }
+        document.getElementById('total').innerText = total.toLocaleString('pt-br',{style:'currency', currency:'BRL'});
         }
 
         function Salvar() {
@@ -87,27 +98,28 @@
             cart.push({ amount, price, tax, Nproduct, total });
             localStorage.setItem("cart", JSON.stringify(cart));
 
-            let products = JSON.parse(localStorage.getItem('items2')) || [];
+            let products = JSON.parse(localStorage.getItem('Products')) || [];
             products.forEach(product => {
                 if (product.product === Nproduct.product) {
                     product.amount -= amount;
                 }
             });
-            localStorage.setItem('items2', JSON.stringify(products));
+            localStorage.setItem('Products', JSON.stringify(products));
 
             renderItem({ Nproduct, amount, price, tax, total });
+            TotalPrice()
         }
 
         function renderItem(HP) {
             let table = document.getElementById('productList');
             let tr = document.createElement('tr');
             tr.innerHTML = `
-                <td class="hometd">${HP.Nproduct?.product}</td>
-                <td class="hometd">${HP.price}</td>
-                <td class="hometd">${HP.amount}</td>
-                <td class="hometd">${HP.tax}</td>
-                <td class="hometd">${HP.total}</td>
-                <td class="hometd"><button onclick='removeItem(this)'>Delete</button></td>
+                <td class="hometd" id="pcollun">${HP.Nproduct?.product}</td>
+                <td class="hometd" id="pcollun">${HP.price}</td>
+                <td class="hometd" id="ccollun2">${HP.amount}</td>
+                <td class="hometd" id="ccollun2">${HP.tax}%</td>
+                <td class="hometd" id="ccollun2">${HP.total}</td>
+                <td class="hometd" id="ccollun2"><button onclick='removeItem(this)' id='delete'>Delete</button></td>
             `;
             table.appendChild(tr);
         }
@@ -121,7 +133,7 @@
             let row = button.parentNode.parentNode;
             let productName = row.cells[0].innerText;
             let productAmount = row.cells[2].innerText;
-            let products = JSON.parse(localStorage.getItem('items2')) || [];
+            let products = JSON.parse(localStorage.getItem('Products')) || [];
 
             products.forEach(product => {
                 if (product.product === productName) {
@@ -131,7 +143,7 @@
 
             let carts = JSON.parse(localStorage.getItem('cart')) || [];
             let newCart = carts.filter(cart => cart.Nproduct.product !== productName);
-            localStorage.setItem('items2', JSON.stringify(products));
+            localStorage.setItem('Products', JSON.stringify(products));
             localStorage.setItem('cart', JSON.stringify(newCart));
             
             row.remove();
@@ -148,6 +160,7 @@
             document.getElementById('tax').value = `${tax2}`;
         }
 
+        TotalPrice()
         getItems();
         getProduct();
     </script>

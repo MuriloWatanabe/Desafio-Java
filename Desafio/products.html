@@ -25,8 +25,8 @@
             <input type="text" placeholder="Product Name" id="product2">
         </div>
         <div class="SubIs2">
-            <div ><input type="text" id="amount2" placeholder="Amount"></div>
-            <div ><input type="text" id="price" placeholder="Unit Price"></div>
+            <div ><input type="number" id="amount2" placeholder="Amount" min="1" oninput="this.value = Math.abs(this.value)"></div>
+            <div ><input type="number" id="price" placeholder="Unit Price" min="1" oninput="this.value = Math.abs(this.value)"></div>
             <div ><select name="" id="select-c"><option disabled selected hidden>Categories</option></select></div>
         </div>
         <div class="Add">
@@ -37,11 +37,11 @@
 <div class="tableP">
         <table>
                     <tr>
-                        <th class="hometh" id="pcollun2"><b>Code</b></th>
-                        <th class="hometh" id="ccollun3"><b>Product</b></th>
-                        <th class="hometh" id="ccollun3"><b>Amount</b></th>
-                        <th class="hometh" id="ccollun3"><b>Unit price</b></th>
-                        <th class="hometh" id="ccollun3"><b>Category</b></th>
+                        <th class="hometh" id="ccollun"><b>Code</b></th>
+                        <th class="hometh" id="ccollun"><b>Product</b></th>
+                        <th class="hometh" id="ccollun"><b>Amount</b></th>
+                        <th class="hometh" id="ccollun"><b>Unit price</b></th>
+                        <th class="hometh" id="ccollun"><b>Category</b></th>
                     </tr>
                     <!-- <tr>
                         <td class="hometd" id="pcollun2">001</td>
@@ -63,15 +63,15 @@
 
                     </tbody>
         </table>
-        <div>
+        <!-- <div>
             <input class="Cancel" type="button" value="Cancel">
-            <input class="Finish" type="button" value="Finish">
-        </div>
+            <button id="finish">Finish</button>
+        </div> -->
     </div>
     <script>
 
         function getCategories() {
-        var categories = JSON.parse(localStorage.getItem('items'));
+        var categories = JSON.parse(localStorage.getItem('Categories'));
         var select = document.getElementById('select-c');
  
         categories.forEach(CG => {
@@ -83,7 +83,7 @@
  
     }
         function Salvar(){
-          var code = JSON.parse(localStorage.getItem('items2')) || [];
+          var code = JSON.parse(localStorage.getItem('Products')) || [];
           var product = document.getElementById('product2').value;
           var amount = document.getElementById('amount2').value;
           var unit = document.getElementById('price').value;
@@ -98,17 +98,17 @@
     
           const produto = {  product , amount , unit, Ncategory , id};
 
-          if (localStorage.getItem('items2') == null){
-            localStorage.setItem('items2', JSON.stringify([produto]))
+          if (localStorage.getItem('Products') == null){
+            localStorage.setItem('Products', JSON.stringify([produto]))
           } else{
             localStorage.setItem(
-                'items2',
+                'Products',
                 JSON.stringify([
-                    ...JSON.parse(localStorage.getItem('items2')), produto
+                    ...JSON.parse(localStorage.getItem('Products')), produto
                 ])
             );
           code.push(produto)
-          localStorage.setItem("items2", JSON.stringify(code))
+          localStorage.setItem("Products", JSON.stringify(code))
           }
           renderItem(produto);
           }
@@ -127,7 +127,7 @@
        }
           
         function getItems(){
-            const items= JSON.parse(localStorage.getItem('items2'));
+            const items= JSON.parse(localStorage.getItem('Products'));
             items.forEach(item => renderItem(item));
         }
         function removeItem(){
@@ -135,9 +135,9 @@
             let id = trow.children[0].innerText
             let name = trow.children[1].innerText
             console.log(name)
-            let categories =JSON.parse(localStorage.getItem('items2'))
+            let categories =JSON.parse(localStorage.getItem('Products'))
             let newCategories = categories.filter(product => product.product!== name && product.id !==id);
-            localStorage.setItem("items2", JSON.stringify(newCategories))
+            localStorage.setItem("Products", JSON.stringify(newCategories))
             trow.remove()
         }
         getCategories()
