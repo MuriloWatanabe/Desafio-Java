@@ -37,12 +37,12 @@
 <div class="tableP">
         <table>
                     <tr>
-                        <th class="hometd" id="ccollun"><b>Code</b></th>
-                        <th class="hometd" id="ccollun"><b>Product</b></th>
-                        <th class="hometd" id="ccollun"><b>Amount</b></th>
-                        <th class="hometd" id="ccollun"><b>Unit price</b></th>
-                        <th class="hometd" id="ccollun"><b>Category</b></th>
-                        <th class="hometd" id="ccollun"><b>Options</b></th>
+                        <th class="hometh" id="ccollun"><b>Code</b></th>
+                        <th class="hometh" id="ccollun"><b>Product</b></th>
+                        <th class="hometh" id="ccollun"><b>Amount</b></th>
+                        <th class="hometh" id="ccollun"><b>Unit price</b></th>
+                        <th class="hometh" id="ccollun"><b>Category</b></th>
+                        <th class="hometh" id="ccollun"><b>Options</b></th>
                     </tr>
                     <!-- <tr>
                         <td class="hometd" id="pcollun2">001</td>
@@ -128,9 +128,9 @@
        let tr = document.createElement('tr')
        tr.innerHTML=` <td class="hometd" id="pcollun">${produto.id}</td>
                       <td class="hometd" id="pcollun">${produto.product}</td>               
-                      <td class="hometd" id="pcollun">${produto.amount}</td>
+                      <td class="hometd" id="ccollun2">${produto.amount}</td>
                       <td class="hometd" id="pcollun">${produto.unit}</td>               
-                      <td class="hometd" id="pcollun">${produto.Ncategory?.category}</td>
+                      <td class="hometd" id="ccollun2">${produto.Ncategory?.category}</td>
                       <td class="hometd" id="ccollun3"><Button onclick='removeItem()'>Delete</Button></td>`;
                       table.append(tr)
                       console.log(produto)
