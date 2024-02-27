@@ -22,10 +22,10 @@
     <main>
         <div class="CNAdd">
         <div class="CategoryName">
-            <input type="text" id="ctt" name="data" placeholder="Category Name">
+            <input type="text" id="ctt" name="data" placeholder="Category Name" oninput="removeSpecialCharacters(this)">
         </div>
         <div class="SubIs">
-            <div ><input type="text" name="tax" id="ctt2" placeholder="Tax" min="1" oninput="this.value = Math.abs(this.value)"></div>
+            <div ><input type="number" name="tax" id="ctt2" placeholder="Tax" min="1" oninput="this.value = Math.abs(this.value)"></div>
         </div>
         <div class="Add">
          <button onclick="Salvar()">Add Category</button>
@@ -46,6 +46,10 @@
         </table>
     </div>
     <script>
+        function removeSpecialCharacters(input) {
+        input.value = input.value.replace(/[<^>\\""//]/, ''); 
+        }
+
         function Salvar(){
           var categorias = JSON.parse(localStorage.getItem('Categories')) || [];
           var category = document.getElementById('ctt').value;

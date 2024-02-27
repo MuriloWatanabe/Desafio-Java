@@ -20,28 +20,41 @@
 <div class="tableP">
     <table>
                 <tr>
-                    <th class="hometh" id="pcollun"><b>Code</b></th>
+                    <th class="hometh" id="ccollun"><b>Code</b></th>
+                    <th class="hometh" id="ccollun"><b>Product</b></th>
+                    <th class="hometh" id="ccollun"><b>Amount</b></th>
+                    <th class="hometh" id="ccollun"><b>Category</b></th>
                     <th class="hometh" id="ccollun"><b>Tax</b></th>
                     <th class="hometh" id="ccollun"><b>Total</b></th>
-                </tr>
-                <tr>
-                    <td class="hometd" id="pcollun">001</td>
-                    <td class="hometd" id="ccollun2">$2.00</td>
-                    <td class="hometd" id="ccollun2">$20.00</td>
-                    <td class="hometd" id="ccollun4"><a href="view.html"><Button>View</Button></a></td>
-                </tr>
-                <tr>
-                    <td class="hometd" id="pcollun">002</td>
-                    <td class="hometd" id="ccollun2">$0.50</td>
-                    <td class="hometd" id="ccollun2">$10.00</td>
-                    <td class="hometd" id="ccollun4"><a href="view.html"><Button>View</Button></a></td>
                 </tr>
     </table>
     <div>
     </div>
 </div>
 <script>
-   
+   function gethistoryproducts(){
+    const items= JSON.parse(localStorage.getItem('history'));
+            items.forEach(item => renderItem(item));
+   }
+   gethistoryproducts()
+
+   function renderItem(history) {
+    if (Array.isArray(history)) {
+    for (let i = 0; i < history.length; i++) {
+       let table = document.querySelector('tbody')
+       let tr = document.createElement('tr')
+       tr.innerHTML=`  
+                    <td class="hometd" id="pcollun">${history[i].Nproduct?.id}</td>
+                    <td class="hometd" id="pcollun">${history[i].Nproduct?.product}</td>
+                    <td class="hometd" id="ccollun2">${history[i].amount}</td>
+                    <td class="hometd" id="ccollun2">${history[i].Nproduct.Ncategory?.category}</td>
+                    <td class="hometd" id="pcollun">${history[i].Nproduct.Ncategory?.tax}</td>
+                      <td class="hometd" id="pcollun2">${history[i].total}</td>                  
+                `;
+                      table.append(tr)
+                      }}
+       }
+       renderItem()
 </script>
 </main>
 </body>

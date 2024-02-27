@@ -41,7 +41,7 @@
         <table>
             <thead>
                 <tr>
-                    <th class="hometh" id="pcollun"><b>Product</b></th>
+                    <th class="hometh" id="ccollun"><b>Product</b></th>
                     <th class="hometh" id="ccollun"><b>Price</b></th>
                     <th class="hometh" id="ccollun"><b>Amount</b></th>
                     <th class="hometh" id="ccollun"><b>Tax</b></th>
@@ -57,7 +57,7 @@
         </div>
         <div>
             <input class="Cancel" type="button" value="Cancel">
-            <button id="finish" onchange="AddHistory()">Finish</button>
+            <button id="finish" onclick="Finish()">Finish</button>
         </div>
     </div>
     <script>
@@ -160,6 +160,20 @@
             document.getElementById('tax').value = `${tax2}`;
         }
 
+        function Finish(){
+            let history = JSON.parse(localStorage.getItem('history')) || []
+            let cart = JSON.parse(localStorage.getItem('cart'))
+            
+            if (localStorage.getItem('history') === null) {
+        localStorage.setItem('history', JSON.stringify([cart]));
+    } else {
+        localStorage.setItem('history', JSON.stringify([...JSON.parse(localStorage.getItem('history')), cart]));
+    };
+    localStorage.removeItem('cart')
+    document.getElementById("productList").innerHTML = "";
+ 
+    document.getElementById("total").textContent = "";
+        }
         TotalPrice()
         getItems();
         getProduct();

@@ -22,7 +22,7 @@
     <main>
         <div class="ProductAdd">
         <div class="Product">
-            <input type="text" placeholder="Product Name" id="product2">
+            <input type="text" placeholder="Product Name" id="product2" oninput="removeSpecialCharacters(this)">
         </div>
         <div class="SubIs2">
             <div ><input type="number" id="amount2" placeholder="Amount" min="1" oninput="this.value = Math.abs(this.value)"></div>
@@ -42,6 +42,7 @@
                         <th class="hometh" id="ccollun"><b>Amount</b></th>
                         <th class="hometh" id="ccollun"><b>Unit price</b></th>
                         <th class="hometh" id="ccollun"><b>Category</b></th>
+                        <th class="hometh" id="ccollun"><b>Options</b></th>
                     </tr>
                     <!-- <tr>
                         <td class="hometd" id="pcollun2">001</td>
@@ -69,6 +70,10 @@
         </div> -->
     </div>
     <script>
+
+    function removeSpecialCharacters(input) {
+    input.value = input.value.replace(/[<>^\\]/, ''); 
+    }
 
         function getCategories() {
         var categories = JSON.parse(localStorage.getItem('Categories'));
