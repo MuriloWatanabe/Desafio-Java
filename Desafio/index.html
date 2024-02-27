@@ -11,7 +11,7 @@
     <h1>Suite Store</h1>
     <nav>
         <ul>
-            <li><a href = "index.html">Home</a></li>
+            <li><a href="index.html">Home</a></li>
             <li><a href="products.html">Products</a></li>
             <li><a href="categories.html">Categories</a></li>
             <li><a href="history.html">History</a></li>
@@ -21,34 +21,38 @@
 <body>
     <main>
         <div class="ProductAdd">
-        <div class="Product">
-            <div ><select name="" id="select-p" onchange="associaInput()"><option disabled selected hidden>Product</option></select></div>
-        </div>
-        <div class="SubIs">
-            <div ><input type="text" id="amount" placeholder="Amount"></div>
-            <div ><input type="text" id="tax" placeholder="Tax"></div>
-            <div ><input type="text" id="price2" placeholder="Price"></div>
-   
-        </div>
-        <div class="Add">
-           <button onclick="Salvar()">Add Product</button>
+            <div class="Product">
+                <div><select name="" id="select-p" onchange="associaInput()">
+                        <option disabled selected hidden>Product</option>
+                    </select></div>
+            </div>
+            <div class="SubIs">
+                <div><input type="number" id="amount" placeholder="Amount" min="1" oninput="this.value = Math.abs(this.value)"></div>
+                <div><input type="text" id="tax" placeholder="Tax" readonly></div>
+                <div><input type="text" id="price2" placeholder="Price" readonly></div>
+
+            </div>
+            <div class="Add">
+                <button onclick="Salvar()">Add Product</button>
+            </div>
         </div>
     </div>
-</div>
-<div class="tableP">
+    <div class="tableP">
         <table>
-                    <tr>
-                        <th class="hometh" id="pcollun"><b>Product</b></th>
-                        <th class="hometh" id="ccollun"><b>Price</b></th>
-                        <th class="hometh" id="ccollun"><b>Amount</b></th>
-                        <th class="hometh" id="ccollun"><b>Tax</b></th>
-                        <th class="hometh" id="ccollun"><b>Total</b></th>
-                        <th class="hometh" id="ccollun"><b>Options</b></th>
-                    </tr>
-                   
+            <thead>
+                <tr>
+                    <th class="hometh" id="pcollun"><b>Product</b></th>
+                    <th class="hometh" id="ccollun"><b>Price</b></th>
+                    <th class="hometh" id="ccollun"><b>Amount</b></th>
+                    <th class="hometh" id="ccollun"><b>Tax</b></th>
+                    <th class="hometh" id="ccollun"><b>Total</b></th>
+                    <th class="hometh" id="ccollun"><b>Options</b></th>
+                </tr>
+            </thead>
+            <tbody id="productList"></tbody>
         </table>
         <div>
-            <label for="IdTax"  id="IdTax">Tax: $6.50</label>
+            <label for="IdTax" id="IdTax">Tax: $6.50</label>
         </div>
         <div>
             <label for="IdTotal" id="IdTotal">Total: $32.50</label>
@@ -59,91 +63,94 @@
         </div>
     </div>
     <script>
-          function getProduct() {
-        var produto = JSON.parse(localStorage.getItem('items2'));
-        var select = document.getElementById('select-p');
- 
-        produto.forEach(CG => {
-            var option = document.createElement("option");
-            option.value = JSON.stringify(CG);
-            option.innerText = JSON.stringify(CG.product);
-            select.append(option);
-        })}
+        function getProduct() {
+            var produto = JSON.parse(localStorage.getItem('items2')) || [];
+            var select = document.getElementById('select-p');
 
-        function Salvar(){
-          var amount = document.getElementById('amount').value;
-          var tax = document.getElementById('tax').value;
-          var price = document.getElementById('price2').value;
-          var Pptc = document.getElementById('select-p').value;
-          var total = ((price * amount) * (1 + tax / 100)).toFixed(2);
-          const Nproduct = JSON.parse(Pptc)
-          console.log(Pptc)
-    
-    
-          var cart = JSON.parse(localStorage.getItem("cart")) || [];
-        cart.push({ amount, price,tax, Nproduct, total});
-        localStorage.setItem("cart", JSON.stringify(cart));
-     
-        let carts = JSON.parse(localStorage.getItem('cart'))
-                let products = JSON.parse(localStorage.getItem('items2'))
-                carts.forEach(cart => {
-                    products.forEach(product => {
-                        if (cart.name == product.name) {
-                            product.amount = parseFloat(product.amount) - parseFloat(cart.amount)
-                        }
-                    })
-                })
-                localStorage.setItem('items2', JSON.stringify(products))
+            produto.forEach(CG => {
+                var option = document.createElement("option");
+                option.value = JSON.stringify(CG);
+                option.innerText = JSON.stringify(CG.product);
+                select.append(option);
+            })
+        }
+
+        function Salvar() {
+            var amount = document.getElementById('amount').value;
+            var tax = document.getElementById('tax').value;
+            var price = document.getElementById('price2').value;
+            var Pptc = document.getElementById('select-p').value;
+            var total = ((price * amount) * (1 + tax / 100)).toFixed(2);
+            const Nproduct = JSON.parse(Pptc)
+
+            var cart = JSON.parse(localStorage.getItem("cart")) || [];
+            cart.push({ amount, price, tax, Nproduct, total });
+            localStorage.setItem("cart", JSON.stringify(cart));
+
+            let products = JSON.parse(localStorage.getItem('items2')) || [];
+            products.forEach(product => {
+                if (product.product === Nproduct.product) {
+                    product.amount -= amount;
+                }
+            });
+            localStorage.setItem('items2', JSON.stringify(products));
+
+            renderItem({ Nproduct, amount, price, tax, total });
         }
 
         function renderItem(HP) {
-       let table = document.querySelector('tbody')
-       let tr = document.createElement('tr')
-       tr.innerHTML=` <td class="hometd" id="ccollun2">${HP.Nproduct?.product}</td>
-                      <td class="hometd" id="ccollun2">${HP.price}</td>
-                      <td class="hometd" id="ccollun2">${HP.amount}</td>
-                      <td class="hometd" id="ccollun2">${HP.tax}</td>
-                      <td class="hometd" id="ccollun2">${HP.total}</td>
-                      <td class="hometd" id="ccollun3"><Button onclick='removeItem()'>Delete</Button></td>`;
-                      table.append(tr)
-       }
-          
-        function getItems(){
-            const items= JSON.parse(localStorage.getItem('cart'));
+            let table = document.getElementById('productList');
+            let tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td class="hometd">${HP.Nproduct?.product}</td>
+                <td class="hometd">${HP.price}</td>
+                <td class="hometd">${HP.amount}</td>
+                <td class="hometd">${HP.tax}</td>
+                <td class="hometd">${HP.total}</td>
+                <td class="hometd"><button onclick='removeItem(this)'>Delete</button></td>
+            `;
+            table.appendChild(tr);
+        }
+
+        function getItems() {
+            const items = JSON.parse(localStorage.getItem('cart')) || [];
             items.forEach(item => renderItem(item));
         }
-        function removeItem(){
-            let trow = this.event.target.parentElement.parentElement
-            let pt = trow.children[0].innerText
-            console.log(pt)
-            let price = trow.children[1].innerText
-            console.log(price)
-            let categories =JSON.parse(localStorage.getItem('cart'))
-            let newCategories = categories.filter(HP => HP.product !== pt && HP.price !==price);
-            localStorage.setItem("cart", JSON.stringify(newCategories))
-            trow.remove()
+
+        function removeItem(button) {
+            let row = button.parentNode.parentNode;
+            let productName = row.cells[0].innerText;
+            let productAmount = row.cells[2].innerText;
+            let products = JSON.parse(localStorage.getItem('items2')) || [];
+
+            products.forEach(product => {
+                if (product.product === productName) {
+                    product.amount += parseInt(productAmount);
+                }
+            });
+
+            let carts = JSON.parse(localStorage.getItem('cart')) || [];
+            let newCart = carts.filter(cart => cart.Nproduct.product !== productName);
+            localStorage.setItem('items2', JSON.stringify(products));
+            localStorage.setItem('cart', JSON.stringify(newCart));
+            
+            row.remove();
         }
-       
 
- function associaInput() {
-    const amount = document.getElementById("amount").value;
-    const Pptc = document.getElementById("select-p").value;
-    const Nproduct = JSON.parse(Pptc)
-    const cart = {Nproduct, amount,};
-    var tax2 = cart.Nproduct.Ncategory?.tax
-    var taxInt = parseInt(tax2)
-    var price2 = cart.Nproduct.unit
-    var priceInt = parseInt(price2)
-    document.getElementById('price2').value = `${priceInt}`;
-    document.getElementById('tax').value = `${taxInt}`;
-    console.log(typeof priceInt)
-}
+        function associaInput() {
+            const amount = document.getElementById("amount").value;
+            const Pptc = document.getElementById("select-p").value;
+            const Nproduct = JSON.parse(Pptc);
+            const cart = { Nproduct, amount };
+            var tax2 = cart.Nproduct.Ncategory?.tax || 0;
+            var price2 = cart.Nproduct.unit || 0;
+            document.getElementById('price2').value = `${price2}`;
+            document.getElementById('tax').value = `${tax2}`;
+        }
 
-
-        getItems()
-        getProduct()
+        getItems();
+        getProduct();
     </script>
-    </main>
 </body>
 
 </html>
