@@ -52,13 +52,24 @@
             <tbody id="productList"></tbody>
         </table>
     
-        <div id="total"></div>
+        <div><div id="total"></div></div>
         <div>
             <input class="Cancel" type="button" value="Cancel">
             <button id="finish" onclick="Finish()">Finish</button>
         </div>
     </div>
     <script>
+     const cartList = []
+   function loadCart() {
+        const dataCart = JSON.parse(localStorage.getItem('cart'))
+        cartList.push(...dataCart)
+        showCartProducts()
+    }
+
+function total(){
+   return document.getElementById("total").innerText;
+}
+
         function getProduct() {
             var produto = JSON.parse(localStorage.getItem('Products')) || [];
             var select = document.getElementById('select-p');
@@ -81,13 +92,13 @@
             let amount = parseInt(item.amount);
             let tax = parseFloat(item.tax);
 
-            if (!isNaN(price) && !isNaN(amount) && !isNaN(tax)) {
-                let itemTotal = ((price * amount) * (1 + tax / 100)).toFixed(2);
+            if ((price) && (amount) && (tax)) {
+                let itemTotal = ((price * amount) * (1 + tax / 100));
                 total += parseFloat(itemTotal);
-            }
+            }   
         });
     }
-    
+
     document.getElementById('total').innerText = total.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
 }
 
@@ -126,7 +137,7 @@ function renderItem(HP) {
     const price = parseFloat(HP.price);
     const amount = parseInt(HP.amount);
     const tax = parseFloat(HP.tax);
-    
+    console.log(HP)
     if (isNaN(price) || isNaN(amount) || isNaN(tax)) {
         console.error("One or more values are not valid numbers.");
         return;
@@ -142,8 +153,9 @@ function renderItem(HP) {
         <td class="hometd amount" id="ccollun2">${amount}</td>
         <td class="hometd" id="ccollun2">${tax}%</td>
         <td class="hometd" id="ccollun2">R$${total}</td>
-        <td class="hometd" id="ccollun2"><button onclick='removeItem(this)' id='delete'>Delete</button></td>
-    `;
+        <td class="hometd" id="ccollun3"><button onclick='removeItem(this)' id='delete'>Delete</button></td>
+    `
+    console.log(typeof price);
     table.appendChild(tr);
 }
 
@@ -200,20 +212,42 @@ function renderItem(HP) {
     }
 }
 
-        function Finish(){
-            let history = JSON.parse(localStorage.getItem('history')) || [];
-            let cart = JSON.parse(localStorage.getItem('cart'));
+function newID() {
+        return Math.floor(Math.random() * 100)
+
+    }
+
+function Finish(){
+    let cart = JSON.parse(localStorage.getItem('cart'));
+    cartList.push({
+        code: newID(),
+        products: [...cart],
+        TotalPrice: total(),
+        totaltax: tax.value,
+    }),console.log(tax)
+    localStorage.setItem("history", JSON.stringify(cartList))
+
+    localStorage.removeItem('cart');
+    document.getElementById("productList").innerHTML = "";
+    document.getElementById("total").textContent = "";
+}
+        // function Finish(){
+        //     let history = JSON.parse(localStorage.getItem('history')) || [];
+        //     let cart = JSON.parse(localStorage.getItem('cart'));
+        //     var code = JSON.parse(localStorage.getItem('Products')) || [];
             
-            if (localStorage.getItem('history') === null) {
-                localStorage.setItem('history', JSON.stringify([cart]));
-            } else {
-                localStorage.setItem('history', JSON.stringify([...JSON.parse(localStorage.getItem('history')), cart]));
-            }
             
-            localStorage.removeItem('cart');
-            document.getElementById("productList").innerHTML = "";
-            document.getElementById("total").textContent = "";
-        }
+            
+        //     if (localStorage.getItem('history') === null) {
+        //         localStorage.setItem('history', JSON.stringify([cart]));
+        //     } else {
+        //         localStorage.setItem('history', JSON.stringify([...JSON.parse(localStorage.getItem('history')), cart]));
+        //     }
+            
+        //     localStorage.removeItem('cart');
+        //     document.getElementById("productList").innerHTML = "";
+        //     document.getElementById("total").textContent = "";
+        // }
         
         TotalPrice();
         getItems();

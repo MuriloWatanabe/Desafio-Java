@@ -22,7 +22,7 @@
     <main>
         <div class="CNAdd">
         <div class="CategoryName">
-            <input type="text" id="ctt" name="data" placeholder="Category Name" oninput="removeSpecialCharacters(this)">
+            <input type="text" maxlength="30" id="ctt" name="data" placeholder="Category Name" oninput="removeSpecialCharacters(this)">
         </div>
         <div class="SubIs">
             <div ><input type="number" name="tax" id="ctt2" placeholder="Tax" min="1" oninput="this.value = Math.abs(this.value)"></div>
@@ -32,7 +32,7 @@
         </div>
     </div>
 </div>
-<div id="tableP">
+<div class="tableP">
         <table>
                     <tr>
                         <th class="hometh" id="ccollun"><b>Code</b></th>
