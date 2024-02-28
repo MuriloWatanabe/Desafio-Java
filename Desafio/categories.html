@@ -1,115 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <title>Suite Store</title>
-    
+
 </head>
 <header>
     <h1>Suite Store</h1>
     <nav>
         <ul>
-            <li><a href = "index.html">Home</a></li>
-            <li><a href = "products.html">Products</a></li>
-            <li><a href = "categories.html">Categories</a></li>
-            <li><a href = "history.html">History</a></li>
-            </ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="products.html">Products</a></li>
+            <li><a href="categories.html">Categories</a></li>
+            <li><a href="history.html">History</a></li>
+        </ul>
     </nav>
 </header>
+
 <body>
     <main>
         <div class="CNAdd">
-        <div class="CategoryName">
-            <input type="text" maxlength="30" id="ctt" name="data" placeholder="Category Name" oninput="removeSpecialCharacters(this)">
+            <div class="CategoryName">
+                <input type="text" maxlength="30" id="ctt" name="data" placeholder="Category Name"
+                    oninput="removeSpecialCharacters(this)">
+            </div>
+            <div class="SubIs">
+                <div><input type="number" name="tax" id="ctt2" placeholder="Tax" min="1"
+                        oninput="this.value = Math.abs(this.value)"></div>
+            </div>
+            <div class="Add">
+                <button onclick="Salvar()">Add Category</button>
+            </div>
         </div>
-        <div class="SubIs">
-            <div ><input type="number" name="tax" id="ctt2" placeholder="Tax" min="1" oninput="this.value = Math.abs(this.value)"></div>
         </div>
-        <div class="Add">
-         <button onclick="Salvar()">Add Category</button>
-        </div>
-    </div>
-</div>
-<div class="tableP">
-        <table>
-                    <tr>
-                        <th class="hometh" id="ccollun"><b>Code</b></th>
-                        <th class="hometh" id="ccollun"><b>Category</b></th>
-                        <th class="hometh" id="ccollun"><b>Tax</b></th>
-                        <th class="hometh" id="ccollun"><b>Options</b></th>
-                    </tr>
-                    <tbody class="tbody">
+        <div class="tableP">
+            <table>
+                <tr>
+                    <th class="hometh" id="ccollun"><b>Code</b></th>
+                    <th class="hometh" id="ccollun"><b>Category</b></th>
+                    <th class="hometh" id="ccollun"><b>Tax</b></th>
+                    <th class="hometh" id="ccollun"><b>Options</b></th>
+                </tr>
+                <tbody class="tbody">
 
-                    </tbody>
-        </table>
-    </div>
-    <script>
-        function removeSpecialCharacters(input) {
-        input.value = input.value.replace(/[<^>\\""//]/, ''); 
-        }
-
-        function Salvar(){
-          var categorias = JSON.parse(localStorage.getItem('Categories')) || [];
-          var category = document.getElementById('ctt').value;
-          var tax = document.getElementById('ctt2').value;
-          var id = 0;
-          for(let i= 0; i < categorias.length; i++){
-            if(categorias[i].id >=id){
-                id = categorias[i].id +1
+                </tbody>
+            </table>
+        </div>
+        <script>
+            function removeSpecialCharacters(input) {
+                input.value = input.value.replace(/[<^>\\""//]/, '');
             }
-          }
-    
-          const categories = {category , tax , id};
-
-          
-          if (tax === ""|| category === "") {
-                alert("Preencha todos os campos!")
-                return;
+            function removeSpecialCharFromString(str) {
+                return str.replace(/[<^>\\""//]/, '');
             }
 
-          if (localStorage.getItem('Categories') == null){
-            localStorage.setItem('Categories', JSON.stringify([categories]))
-          } else{
-            localStorage.setItem(
-                'Categories',
-                JSON.stringify([
-                    ...JSON.parse(localStorage.getItem('Categories')), categories
-                ])
-            );
-          categorias.push(categories)
-          localStorage.setItem("Categories", JSON.stringify(categorias))
-          }
-          renderItem(categories);
-          }
+            function Salvar() {
+                var categorias = JSON.parse(localStorage.getItem('Categories')) || [];
+                var category = document.getElementById('ctt').value;
+                var tax = document.getElementById('ctt2').value;
+                var id = 0;
+                for (let i = 0; i < categorias.length; i++) {
+                    if (categorias[i].id >= id) {
+                        id = categorias[i].id + 1
+                    }
+                }
 
-        function renderItem(categories) {
-       let table = document.querySelector('tbody')
-       let tr = document.createElement('tr')
-       tr.innerHTML=` <td class="hometd" id="ccollun">${categories.id}</td>
+                const categories = { category: removeSpecialCharFromString(category), tax, id };
+
+
+                if (tax === "" || category === "") {
+                    alert("Preencha todos os campos!")
+                    return;
+                }
+
+                if (localStorage.getItem('Categories') == null) {
+                    localStorage.setItem('Categories', JSON.stringify([categories]))
+                } else {
+                    localStorage.setItem(
+                        'Categories',
+                        JSON.stringify([
+                            ...JSON.parse(localStorage.getItem('Categories')), categories
+                        ])
+                    );
+                    categorias.push(categories)
+                    localStorage.setItem("Categories", JSON.stringify(categorias))
+                }
+                renderItem(categories);
+            }
+
+            function renderItem(categories) {
+                let table = document.querySelector('tbody')
+                let tr = document.createElement('tr')
+                tr.innerHTML = ` <td class="hometd" id="ccollun">${categories.id}</td>
                       <td class="hometd" id="ccollun">${categories.category}</td>               
                       <td class="hometd" id="ccollun">${categories.tax}%</td>
                       <td class="hometd" id="ccollun3"><Button onclick='removeItem()'>Delete</Button></td>`;
-                      table.append(tr)
-       }
-          
-        function getItems(){
-            const items= JSON.parse(localStorage.getItem('Categories'));
-            items.forEach(item => renderItem(item));
-        }
-        function removeItem(){
-            let trow = this.event.target.parentElement.parentElement
-            let id = trow.children[0].innerText
-            let tax = trow.children[2].innerText
-            console.log(tax)
-            let categories =JSON.parse(localStorage.getItem('Categories'))
-            let newCategories = categories.filter(category => category.id !== id && category.tax !==tax);
-            localStorage.setItem("Categories", JSON.stringify(newCategories))
-            trow.remove()
-        }
-        getItems()
-    </script>
+                table.append(tr)
+            }
+
+            function getItems() {
+                const items = JSON.parse(localStorage.getItem('Categories'));
+                items.forEach(item => renderItem(item));
+            }
+            function removeItem() {
+                let trow = this.event.target.parentElement.parentElement
+                let id = trow.children[0].innerText
+                let tax = trow.children[2].innerText
+                console.log(tax)
+                let categories = JSON.parse(localStorage.getItem('Categories'))
+                let newCategories = categories.filter(category => category.id !== id && category.tax !== tax);
+                localStorage.setItem("Categories", JSON.stringify(newCategories))
+                trow.remove()
+            }
+            getItems()
+        </script>
     </main>
 </body>
 
