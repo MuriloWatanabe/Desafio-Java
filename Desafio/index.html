@@ -225,8 +225,10 @@ function Finish(){
         TotalPrice: total(),
         totaltax: tax.value,
     }),console.log(tax)
-    localStorage.setItem("history", JSON.stringify(cartList))
 
+    localStorage.setItem("history", JSON.stringify(cartList))
+    
+    
     localStorage.removeItem('cart');
     document.getElementById("productList").innerHTML = "";
     document.getElementById("total").textContent = "";

@@ -48,71 +48,64 @@
     
                 </div>
             </div>
-    
+            <script>
+                let saleLists = []
+                const saleDetails = document.getElementById("sale-details")
+                const listSales = document.getElementById("list-sales")
+                const btnShowDetails = document.getElementById("btn-show-details")
+            
+            
+                function loadSales(){
+                    const dataSales = JSON.parse(localStorage.getItem("history")) || []
+                    saleLists = dataSales
+                    showSales()
+                }
+            
+                function showSales(){
+                    newList = ''
+                    saleLists.forEach(x => {
+                        newList = newList + `<tr>
+                                        <td class="tablemainitem" id="ccollun">${x.code}</td>
+                                        <td id="ccollun" >$${x.totaltax}</td>
+                                        <td id="ccollun" >$${x.TotalPrice}</td>
+                                        <td id="pcollun" ><button id="btn-show-details" onclick="showSaleDetails(${x.code})" class="btnalternative">View</button></a></td>
+                                    </tr>`
+                                    console.log(x)
+                    })
+                    listSales.innerHTML = newList
+                }
+                
+                function getSalesByCode(code){
+                    const sales = JSON.parse(localStorage.getItem('history')) || []
+                    for (const sale of sales) {
+                        if (
+                            code == sale.code
+                        ) {
+                            return sale
+                        }
+                    }
+                }
+                
+                function showSaleDetails(code){
+                    newList = ''
+                    const saleLists = getSalesByCode(code)
+            
+                    saleLists.products.forEach(x => {
+                        newList = newList + `<tr>
+                            <td class="tablemainitem" id="ccollun">${x.Nproduct.product}</td>
+                            <td id="ccollun">${x.price}</td>
+                            <td id="ccollun" >${x.tax}</td>
+                            <td id="ccollun" >${x.amount}</td>
+                            <td id="ccollun" >${x.total}</td>
+                           
+                            `
+                    })
+                    saleDetails.innerHTML = newList
+                }
+            
+                loadSales()
+            </script>
     </main>
     
 </body>
 </html>
-
-<script>
-    let saleLists = []
-    const saleDetails = document.getElementById("sale-details")
-    const listSales = document.getElementById("list-sales")
-    const btnShowDetails = document.getElementById("btn-show-details")
-
-
-    function loadSales(){
-        const dataSales = JSON.parse(localStorage.getItem("history")) || []
-        saleLists = dataSales
-        showSales()
-    }
-
-    function showSales(){
-        newList = ''
-        saleLists.forEach(x => {
-            newList = newList + `<tr>
-                            <td class="tablemainitem" id="ccollun">${x.code}</td>
-                            <td id="ccollun" >$${x.totaltax}</td>
-                            <td id="ccollun" >$${x.TotalPrice}</td>
-                            <td id="pcollun" ><button id="btn-show-details" onclick="showSaleDetails(${x.code})" class="btnalternative">View</button></a></td>
-                        </tr>`
-                        console.log(x)
-        })
-        listSales.innerHTML = newList
-    }
-    
-    function getSalesByCode(code){
-        const sales = JSON.parse(localStorage.getItem('history')) || []
-        for (const sale of sales) {
-            if (
-                code == sale.code
-            ) {
-                return sale
-            }
-        }
-    }
-    
-    function showSaleDetails(code){
-        newList = ''
-        const saleLists = getSalesByCode(code)
-
-        saleLists.products.forEach(x => {
-            newList = newList + `<tr>
-                <td class="tablemainitem" id="ccollun">${x.Nproduct.product}</td>
-                <td id="ccollun">${x.price}</td>
-                <td id="ccollun" >${x.tax}</td>
-                <td id="ccollun" >${x.amount}</td>
-                <td id="ccollun" >${x.total}</td>
-               
-                `
-        })
-        saleDetails.innerHTML = newList
-    }
-
-
-
-
-
-
-    loadSales()
-</script>

@@ -20,153 +20,92 @@
 </header>
 <body>
     <main>
-        <div class="CNAdd">
-            <table>
-                <tr>
-                    <th class="hometh" id="ccollun" class="tablemainitem"><b>Code</b></th>
-                    <th class="hometh" id="ccollun"><b>Tax</b></th>
-                    <th class="hometh" id="ccollun"><b>Total</b></th>
-                    <th class="hometh" id="ccollun"><b>Options</b></th>
-                </tr>
-                <tbody class="tbody1">
-                </tbody>
-    </table>
-    </div>
-</div>
-<div class="tableP">
-        <table>
-            <tr>
-                <th class="hometh" id="ccollun" class="tablemainitem"><b>Product</b></th>
-                <th class="hometh" id="ccollun"><b>Price</b></th>
-                <th class="hometh" id="ccollun"><b>Amount</b></th>
-                <th class="hometh" id="ccollun"><b>Tax</b></th>
-                <th class="hometh" id="ccollun"><b>Total</b></th>
-            </tr>
-                    <tbody id="tbody2" class="prices">
+            <div class="gridArea1">   
+                <table>
+                    <thead>
+                        <td class="tablemainitem" id="ccollun">Code</td>
+                        <td id="ccollun">Tax</td>
+                        <td id="ccollun">Total</td>
+                    </thead>
+                    <tbody id="list-sales">
+                        
                     </tbody>
-        </table>
-    </div>
-    <script>
-        let saleLists = []
-        const saleDetails = document.getElementById("tbody1")
-        const listSales = document.getElementById("tbody2")
-        const btnShowDetails = document.getElementById("btn-show-details")
+                </table>   
+            </div>     
+            <div class="tableP">
+                <table>
+                    <tr>
+                        <td class="tablemainitem" id="ccollun">Product</td>
+                        <td id="ccollun">Unit price</td>
+                        <td id="ccollun">Product Tax</td>
+                        <td id="ccollun">Amount</td>
+                        <td id="ccollun">Total</td>
+                    </tr>
+                    <tbody id="sale-details">
+                    </tbody>
+                </table>
+                <div id="sale-details" class="prices">
     
-    
-        function loadSales(){
-            const dataSales = JSON.parse(localStorage.getItem("history")) || []
-            saleLists = dataSales
-            showSales()
-        }
-    
-        function showSales(){
-            newList = ''
-            saleLists.forEach(x => {
-                newList = newList + `<tr>
-                                <td class="tablemainitem">${x.code}</td>
-                                <td>$${x.totaltax}</td>
-                                <td>$${x.TotalPrice}</td>
-                                <td><button id="btn-show-details" onclick="showSaleDetails(${x.code})" class="btnalternative">View</button></a></td>
-                            </tr>`
-                            console.log(x)
-            })
-            listSales.innerHTML = newList
-        }
-        
-        function getSalesByCode(code){
-            const sales = JSON.parse(localStorage.getItem('history')) || []
-            for (const sale of sales) {
-                if (
-                    code == sale.code
-                ) {
-                    return sale
+                </div>
+            </div>
+            <script>
+                let saleLists = []
+                const saleDetails = document.getElementById("sale-details")
+                const listSales = document.getElementById("list-sales")
+                const btnShowDetails = document.getElementById("btn-show-details")
+            
+            
+                function loadSales(){
+                    const dataSales = JSON.parse(localStorage.getItem("history")) || []
+                    saleLists = dataSales
+                    showSales()
                 }
-            }
-        }
-        
-        function showSaleDetails(code){
-            newList = ''
-            const saleLists = getSalesByCode(code)
+            
+                function showSales(){
+                    newList = ''
+                    saleLists.forEach(x => {
+                        newList = newList + `<tr>
+                                        <td class="tablemainitem" id="ccollun">${x.code}</td>
+                                        <td id="ccollun" >${x.totaltax}%</td>
+                                        <td id="ccollun" >${x.TotalPrice}</td>
+                                        <td id="pcollun" ><button id="btn-show-details" onclick="showSaleDetails(${x.code})" class="btnalternative">View</button></a></td>
+                                    </tr>`
+                                    console.log(x)
+                    })
+                    listSales.innerHTML = newList
+                }
+                
+                function getSalesByCode(code){
+                    const sales = JSON.parse(localStorage.getItem('history')) || []
+                    for (const sale of sales) {
+                        if (
+                            code == sale.code
+                        ) {
+                            return sale
+                        }
+                    }
+                }
+                
+                function showSaleDetails(code){
+                    newList = ''
+                    const saleLists = getSalesByCode(code)
+            
+                    saleLists.products.forEach(x => {
+                        newList = newList + `<tr>
+                            <td class="tablemainitem" id="ccollun">${x.Nproduct.product}</td>
+                            <td id="ccollun">${x.price}</td>
+                            <td id="ccollun" >${x.tax}</td>
+                            <td id="ccollun" >${x.amount}</td>
+                            <td id="ccollun" >${x.total}</td>
+                           
+                            `
+                    })
+                    saleDetails.innerHTML = newList
+                }
+            
+                loadSales()
+            </script>
+    </main>
     
-            saleLists.products.forEach(x => {
-                newList = newList + `<tr>
-                    <td class="tablemainitem">${x.Nproduct.product}</td>
-                    <td>${x.price}</td>
-                    <td>${x.tax}</td>
-                    <td>${x.amount}</td>
-                    `
-            })
-            saleDetails.innerHTML = newList
-        }
-    
-    
-    
-    
-    
-    
-        loadSales()
-    </script>
-<!-- <script>
-    function renderItem(history) {
-       let table = document.querySelector('tbody')
-       let tr = document.createElement('tr')
-       tr.innerHTML=` <td class="hometd" id="ccollun">${history.code}</td>
-                      <td class="hometd" id="ccollun">${history.totaltax}%</td>               
-                      <td class="hometd" id="ccollun">${history.TotalPrice}</td>
-                      <td class="hometd" id="ccollun3"><Button onclick='View()'>View</Button></td>`;
-                      table.append(tr)}
-    function getItems(){
-            const items= JSON.parse(localStorage.getItem('history'));
-            items.forEach(item => renderItem(item));
-        }
-
-        function View() {
-    document.querySelector('.tbody2').innerHTML = '';
- 
-    const historyData = JSON.parse(localStorage.getItem('history'));
- 
-    historyData.forEach(item => {
-        item.products.forEach(product => {
-            let table = document.querySelector('.tbody2');
-            let tr = document.createElement('tr');
-            tr.innerHTML = `
-                <td class="hometd" id="ccollun">${product.Nproduct.product}</td>
-                <td class="hometd" id="ccollun">${product.price}</td>
-                <td class="hometd" id="ccollun">${product.amount}</td>
-                <td class="hometd" id="ccollun">${product.tax}</td>
-                <td class="hometd" id="ccollun">${product.total}</td>
-            `;
-            table.appendChild(tr);
-        });
-    });
-}
-
-//    function gethistoryproducts(){
-//     const items= JSON.parse(localStorage.getItem('history'));
-//             items.forEach(item => renderItem(item));
-//    }
-//    gethistoryproducts()
-
-//    function renderItem(history) {
-//     if (Array.isArray(history)) {
-//     for (let i = 0; i < history.length; i++) {
-//        let table = document.querySelector('tbody')
-//        let tr = document.createElement('tr')
-//        tr.innerHTML=`  
-//                     <td class="hometd" id="pcollun">${history[i].totalPrice}</td>
-//                     <td class="hometd" id="pcollun">${history[i].Nproduct.Ncategory?.tax}</td>
-//                     <td class="hometd" id="pcollun2">${history[i].total}</td>
-//                     <td class="hometd" id="ccollun3"><Button onclick="View()">View</Button></td>
-//                 `;
-//                       table.append(tr)
-//                       }}
-//        }
-//        function View(){
-
-//        }
-getItems()
-</script> -->
-</main>
 </body>
-
 </html>
