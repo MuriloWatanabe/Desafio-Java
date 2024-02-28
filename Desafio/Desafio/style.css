@@ -42,7 +42,7 @@ main {
    width: 100%;
    max-width: 100%;
    padding: 20px;
-   overflow: auto;
+   overflow-x: hidden;
 }
 .Product input{
     width: 89%;
@@ -136,28 +136,27 @@ main {
     justify-content: center;
     align-items: center;
  }
-table th{
-   border-bottom: 1px solid;
-   width: 10%;
-}
-table td{
-   border-bottom: 1px solid;
-   width: 10%;
-}
-table{
+ .tableP {
+   max-width: 90%;
+   overflow-x: auto; 
+ }
+
+table {
    border-collapse: collapse;
    text-align: left;
-   width: 10%;
-   margin-left: 15px;
+   width: 100%; 
+   max-width: 100%; 
 }
-#tableP{
-   width: 100%;
-   border-left: 2px solid;
-   height: 100%;
+
+table th, table td {
+   border-bottom: 1px solid;
+   padding: 5px;
+   font-size: x-large;
+   color: gray;
+   max-width: 200px; 
+   word-wrap: break-word; 
+   overflow: hidden; 
 }
-/* .hometd{
-   width: 450px;
-} */
 .Cancel{
    position: absolute;
    left: 75%;
@@ -237,11 +236,14 @@ table{
    background-color: darkgray;
 }
 
-#pcollun{
+#pcollun {
    font-size: x-large;
    color: gray;
    border-left: 1px solid;
    width: 10%;
+   max-width: 200px; 
+   word-wrap: break-word; 
+   overflow: hidden; 
 }
 #pcollun2{
    font-size: large;
