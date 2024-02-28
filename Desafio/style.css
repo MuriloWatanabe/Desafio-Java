@@ -225,6 +225,13 @@ table th, table td {
    border-right: 1px solid;
    background-color: mediumslateblue;
 }
+#btn-show-details{
+   width: 80px;
+   font-size: large;
+   border-right: 1px solid;
+   background-color: mediumslateblue;
+   max-width: 90%
+}
 
 #delete{
    padding: 5px;
@@ -243,6 +250,8 @@ table th, table td {
    font-size: x-large;
    color: gray;
    border-left: 1px solid;
+   border-top: 1px solid;
+   border-right: 1px solid;
    width: 10%;
    max-width: 200px; 
    word-wrap: break-word; 
